@@ -1,17 +1,20 @@
 {
-  "name": "sp-conf",
-  "version": "2.2.9",
+  "name": "sp-conf-ts",
+  "version": "1.0.0alpha1",
   "description": "A small framework for reading config",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "test": "mocha specs/**/*.spec.js && standard"
+    "test": "jest"
   },
   "engines": {
-    "node": ">=4.8.0"
+    "node": ">=16"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codeite/sp-conf.git"
+    "url": "git+https://github.com/codeite/sp-conf-ts.git"
   },
   "keywords": [
     "configuration",
@@ -20,12 +23,15 @@
   "author": "Sam Plews <the@codeite.com> (https://github.com/thecodeite)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/codeite/sp-conf/issues"
+    "url": "https://github.com/codeite/sp-conf-ts/issues"
   },
-  "homepage": "https://github.com/codeite/sp-conf#readme",
+  "homepage": "https://github.com/codeite/sp-conf-ts#readme",
   "devDependencies": {
-    "mocha": "^4.1.0",
-    "must": "^0.13.4",
-    "standard": "^10.0.3"
-  }
+    "@types/jest": "^28.1.3",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {}
 }
