@@ -351,6 +351,18 @@ describe('sp-config', () => {
         expect(errorList.calls.length).toBe(1)
         expect(errorList.calls[0]).toBe('Required certificate env var "MISSING_ENV" was not supplied.')
       })
+
+      it('must be able to read a certificate and log success with obfuscation with custom headers/footers', () => {
+        const CUSTOM_HEADER_FOOTER = 'CUSTOM_HEADER_FOOTER'
+        resetableSource.source[CUSTOM_HEADER_FOOTER] = '__START__\nABCDEF1234567890\n__END__'
+
+        const happyPath = readCertificate(CUSTOM_HEADER_FOOTER, {beginCertificate: '__START__', endCertificate: '__END__'})
+
+        expect(happyPath).toBe('__START__\nABCDEF1234567890\n__END__')
+        expect(logList.calls.length).toBe(1)
+        expect(errorList.calls.length).toBe(0)
+        expect(logList.calls[0]).toBe('Using env var CUSTOM_HEADER_FOOTER AB************90')
+      })
     })
 
     describe('reading a url', () => {

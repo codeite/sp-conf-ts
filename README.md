@@ -14,7 +14,14 @@ It will also check if any variables are missing and allow your app to respond.
 
 Check out example.ts that shows an example of using it.
 ```typescript
-import {readString, readNumber, readBoolean, missingEnvVars, readPassword, readUrl} from '../src/index'
+import {
+  readString, 
+  readNumber, 
+  readBoolean, 
+  missingEnvVars, 
+  readPassword, 
+  readUrl
+} from 'sp-conf-ts'
 
 const regexForIpV4Address = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/
 
@@ -81,3 +88,5 @@ It is not case sensitive so, for example, both `"True"` and `"TRUE"` work just f
   ```
 
   If you supply `isSetIsTrue` insted, then the result will be `true` if the envvar exists (even empty) and `false` if not.
+
+* `readCertificate` - Read a certificate (a string start is bookmarked by `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` by default) Set options `beginCertificate` and `endCertificate` to use different headder and footer.

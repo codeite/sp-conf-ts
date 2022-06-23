@@ -140,16 +140,28 @@ export function readPassword (name: string | string[], suppliedOptions?: Partial
   }
 }
 
-export function readCertificate (name: string | string[], suppliedOptions?: Partial<Options<string>> | string): string | undefined {
-  const options = _cleanOptions( (typeof suppliedOptions === 'string') ? {defaultValue: suppliedOptions} : suppliedOptions)
+export interface CertificateOptions extends Options<string> {
+  beginCertificate?: string
+  endCertificate?: string 
+}
+
+export function readCertificate (name: string | string[], suppliedOptions?: Partial<CertificateOptions> | string): string | undefined {
+  const optionsObj = ( (typeof suppliedOptions === 'string') ? {defaultValue: suppliedOptions} : suppliedOptions)
+  
+  const options: CertificateOptions = {
+    ..._cleanOptions(optionsObj),
+    beginCertificate: optionsObj?.beginCertificate,
+    endCertificate: optionsObj?.endCertificate,
+  }
+  
   if (Array.isArray(name)) return _tryEach<string>(readCertificate, 'certificate', name, options)
 
   const val = options.source[name]
   if (val !== undefined) {
-    options.log(`Using env var ${name} ${obfuscateCertificate(val)}`)
+    options.log(`Using env var ${name} ${obfuscateCertificate(val, options.beginCertificate, options.endCertificate )}`)
     return val
   } else if (options.defaultValue !== undefined) {
-    options.log(`Using default ${name} ${obfuscateCertificate(options.defaultValue)}`)
+    options.log(`Using default ${name} ${obfuscateCertificate(options.defaultValue, options.beginCertificate, options.endCertificate)}`)
     return options.defaultValue
   } else  if (!options.isInnerFunction) {
     options.error(`Required certificate env var "${name}" was not supplied.`)

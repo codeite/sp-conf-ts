@@ -29,11 +29,15 @@ export function obfuscateAuth (urlString: string): string {
   return ((url as any)).format()
 }
 
-const certificateHeader = '-----BEGIN CERTIFICATE-----'
-const certificateFooter = '-----END CERTIFICATE-----'
+const defaultCertificateHeader = '-----BEGIN CERTIFICATE-----'
+const defaultCertificateFooter = '-----END CERTIFICATE-----'
 
 
-export function obfuscateCertificate (certificate: string) {
+export function obfuscateCertificate (
+  certificate: string, 
+  certificateHeader: string = defaultCertificateHeader, 
+  certificateFooter: string = defaultCertificateFooter
+  ) {
   if (!certificate) return certificate
 
   const headerPos = certificate.indexOf(certificateHeader)
